@@ -89,8 +89,27 @@ int									has_died(t_philo_thrds *philo);
 int									check_full(t_philo_thrds *philo);
 void								message(t_philo_thrds *philo, char *msg);
 
-//ERRORS AND STARTING.C//
-void	check_philosophers(char **argv)
+//CLEAN.C//
 
+void	clear_philos(t_philo_thrds *philosop);
+
+//ERRORS AND STARTING.C//
+void	check_philosophers(char **argv);
+t_data_philosopher	*init_data(int argc, char **argv);
+int	init_mutexes(t_data_philosopher *data);
+t_philo_thrds	*init_philosophers_array(t_data_philosopher *data);
+void	setup_forks(t_philo_thrds *philosophers, t_data_philosopher *data);
+
+//CREAT JOIN AND MONITOR.C//
+
+void	create_philosopher_threads(t_philo_thrds *philosophers);
+void 	monitor(t_philo_thrds *philosophers);
+void join_philosopher_threads(t_philo_thrds *philosophers);
+
+// INIT AND DEATH FULL CHECHK //
+
+t_philo_thrds	*init_philosophers(int argc, char **argv);
+int	check_death(t_philo_thrds *philo);
+int	meal_time(t_philo_thrds *philo);
 
 #endif
