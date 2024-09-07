@@ -1,5 +1,7 @@
 #include "philosophers.h"
 
+//Destroy all threads to a oid data racse
+
 void    destroy_mutexes(t_philo_thrds *philosop)
 {
     pthread_mutex_destroy(&philosop->data->thinkin);
@@ -15,6 +17,8 @@ void    destroy_mutexes(t_philo_thrds *philosop)
 	pthread_mutex_destroy(&philosop->data->death_mtex);
 }
 
+
+//clean all the alloced mem
 void	clear_philos(t_philo_thrds *philosop)
 {
 	int	i;

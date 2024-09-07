@@ -29,6 +29,8 @@ int	meal_time(t_philo_thrds *philo)
 	return (all_meals_eaten);
 }
 
+
+//if curr time - last meal time > than time of death -> death
 int	check_death(t_philo_thrds *philo)
 {
 	long	current_time;

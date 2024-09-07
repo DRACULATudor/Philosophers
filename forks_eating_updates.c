@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-
+//if numb is even we lock from the right first
 int	check_fork_order(t_philo_thrds *philo)
 {
 	if (has_died(philo))
@@ -23,7 +23,7 @@ int	check_fork_order(t_philo_thrds *philo)
 	}
 	return (0);
 }
-
+//than unlock here
 void	release_forks(t_philo_thrds *philo)
 {
 	if (philo->philo_id % 2 == 0)
@@ -38,6 +38,7 @@ void	release_forks(t_philo_thrds *philo)
 	}
 }
 
+//update the meal time for each philo who just ate
 void	update_meal_time(t_philo_thrds *philo)
 {
 	pthread_mutex_lock(&philo->data->time_mtex);

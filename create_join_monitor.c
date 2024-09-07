@@ -16,14 +16,15 @@ void	create_philosopher_threads(t_philo_thrds *philosophers)
 		i++;
 	}
 }
-
+//monitors for death/full numbers of meals
+//sleep to avoid busy-waiting(helps for same time actions allowing the cpu to work efficently)
 void 	monitor(t_philo_thrds *philosophers)
 {
 	while (1)
 	{
 		if (check_death(philosophers) || meal_time(philosophers))
 			break ;
-		ft_usleep(100); // Sleep for a short period to avoid busy-waiting
+		ft_usleep(100); 
 	}
 }
 

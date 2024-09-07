@@ -1,5 +1,9 @@
 #include "philosophers.h"
 
+
+//timeval is a struct specially used for getting the time
+//curr time will get the current time
+//return the current time - the start time so we will allways acyratly get the time of each action
 long	ft_time(void)
 {
 	struct timeval	time;
@@ -28,7 +32,7 @@ void	ft_usleep(int time)
 	{
 		while (ft_time() < end)
 		{
-			usleep(100); // Adjust dynamically if necessary
+			usleep(100);
 		}
 	}
 }

@@ -1,5 +1,7 @@
 #include "philosophers.h"
 
+//monitor is using the main thread of the program to ewatch over all the philos
+
 void	create_threads(t_philo_thrds *philosophers)
 {
 	create_philosopher_threads(philosophers);

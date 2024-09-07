@@ -86,6 +86,9 @@ t_philo_thrds	*init_philosophers_array(t_data_philosopher *data)
 	return (philosophers);
 }
 
+//Assign i - 1 (the left of the cur philo) + philo numb (ensuring the numb is positive)
+//% the philo numb it will wrap arounfd in a circular manner (ex:0 - 1 + 5) % 5 = 4(which will be last for 5 philos)
+
 void	setup_forks(t_philo_thrds *philosophers, t_data_philosopher *data)
 {
 	for (int i = 0; i < data->philo_number; i++)

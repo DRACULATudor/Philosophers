@@ -40,6 +40,7 @@ int	is_thinking(t_philo_thrds *philo)
 	message(philo, THINKIN);
 	return (1);
 }
+//Main routie function to check for the actions of each philo
 
 void	*routine(void *arg)
 {
@@ -68,3 +69,5 @@ void	*routine(void *arg)
 	}
 	return (NULL);
 }
+
+//need to lock each time in order to avoid data races, imp to NOTE allways use the same mutexes for the same variables im planning to acces later on
