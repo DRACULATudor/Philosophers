@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:11:00 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:35:19 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	handle_one_philo(t_philo_thrds *philo)
@@ -69,5 +81,6 @@ void	*routine(void *arg)
 	}
 	return (NULL);
 }
-
-//need to lock each time in order to avoid data races, imp to NOTE allways use the same mutexes for the same variables im planning to acces later on
+//need to lock each time in order to avoid data races, 
+//imp to NOTE allways use the same mutexes for 
+//the same variables im planning to acces later on

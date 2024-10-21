@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:12:11 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:54:25 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-//Destroy all threads to a oid data racse
-
-void    destroy_mutexes(t_philo_thrds *philosop)
+// Destroy all threads to avoid data races
+void	destroy_mutexes(t_philo_thrds *philosop)
 {
-    pthread_mutex_destroy(&philosop->data->thinkin);
+	pthread_mutex_destroy(&philosop->data->thinkin);
 	pthread_mutex_destroy(&philosop->data->eating);
 	pthread_mutex_destroy(&philosop->data->death);
 	pthread_mutex_destroy(&philosop->data->sleeping);
@@ -17,8 +28,7 @@ void    destroy_mutexes(t_philo_thrds *philosop)
 	pthread_mutex_destroy(&philosop->data->death_mtex);
 }
 
-
-//clean all the alloced mem
+// clean all the alloced mem
 void	clear_philos(t_philo_thrds *philosop)
 {
 	int	i;
@@ -33,7 +43,7 @@ void	clear_philos(t_philo_thrds *philosop)
 		}
 		i++;
 	}
-    destroy_mutexes(philosop);
+	destroy_mutexes(philosop);
 	if (philosop->data->philosophers)
 		free(philosop->data->philosophers);
 	if (philosop->data)

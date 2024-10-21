@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clock_death_full_check.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:12:02 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:54:15 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-
-//timeval is a struct specially used for getting the time
-//curr time will get the current time
-//return the current time - the start time so we will allways acyratly get the time of each action
+// timeval is a struct specially used for getting the time
+// curr time will get the current time
+// return the current time - the start time so we
+// will allways acyratly get the time of each function call
 long	ft_time(void)
 {
 	struct timeval	time;
@@ -21,6 +33,9 @@ long	ft_time(void)
 	return (current_time - start_time);
 }
 
+// calc the end time by adding sleep duration to the cur time
+// loop const checks while sleeping for 100 sec
+// until curr time is greater/equal than end time
 void	ft_usleep(int time)
 {
 	long	start;
@@ -61,7 +76,7 @@ int	check_full(t_philo_thrds *philo)
 
 void	message(t_philo_thrds *philo, char *msg)
 {
-	long timestamp;
+	long	timestamp;
 
 	pthread_mutex_lock(&philo->data->mssg);
 	timestamp = ft_time();

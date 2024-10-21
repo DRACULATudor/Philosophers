@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:10:32 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:47:53 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 # include <pthread.h>
@@ -23,7 +35,8 @@ int									ft_isdigit(int c);
 typedef struct s_data_philosopher	t_data_philosopher;
 
 typedef struct s_philo_thrds
-// my struct to hold the necessary data for each philosopher regaring functionality
+// my struct to hold the necessary data
+// for each philosopher regaring functionality
 {
 	pthread_t						philosophers_thrd;
 	int								philo_id;
@@ -89,27 +102,28 @@ int									has_died(t_philo_thrds *philo);
 int									check_full(t_philo_thrds *philo);
 void								message(t_philo_thrds *philo, char *msg);
 
-//CLEAN.C//
+// CLEAN.C//
 
-void	clear_philos(t_philo_thrds *philosop);
+void								clear_philos(t_philo_thrds *philosop);
 
-//ERRORS AND STARTING.C//
-void	check_philosophers(char **argv);
-t_data_philosopher	*init_data(int argc, char **argv);
-int	init_mutexes(t_data_philosopher *data);
-t_philo_thrds	*init_philosophers_array(t_data_philosopher *data);
-void	setup_forks(t_philo_thrds *philosophers, t_data_philosopher *data);
+// ERRORS AND STARTING.C//
+void								check_philosophers(char **argv);
+t_data_philosopher					*init_data(int argc, char **argv);
+int									init_mutexes(t_data_philosopher *data);
+t_philo_thrds						*init_philo_array(t_data_philosopher *data);
+void								setup_forks(t_philo_thrds *philosophers,
+										t_data_philosopher *data);
 
-//CREAT JOIN AND MONITOR.C//
+// CREAT JOIN AND MONITOR.C//
 
-void	create_philosopher_threads(t_philo_thrds *philosophers);
-void 	monitor(t_philo_thrds *philosophers);
-void join_philosopher_threads(t_philo_thrds *philosophers);
+void								cret_phil_thrd(t_philo_thrds *philosophers);
+void								monitor(t_philo_thrds *philosophers);
+void								join_phil_thrd(t_philo_thrds *philosophers);
 
 // INIT AND DEATH FULL CHECHK //
 
-t_philo_thrds	*init_philosophers(int argc, char **argv);
-int	check_death(t_philo_thrds *philo);
-int	meal_time(t_philo_thrds *philo);
+t_philo_thrds						*init_philosophers(int argc, char **argv);
+int									check_death(t_philo_thrds *philo);
+int									meal_time(t_philo_thrds *philo);
 
 #endif

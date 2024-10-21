@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors_and_starting.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:11:36 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:51:46 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	check_philosophers(char **argv)
@@ -5,7 +17,9 @@ void	check_philosophers(char **argv)
 	if (ft_atoi(argv[1]) < 0 || ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60
 		|| ft_atoi(argv[4]) < 60)
 	{
-		printf("Error: Invalid time or philosophers number (the time must be greater than 60 and the philo number greater than 0)\n");
+		printf("Error: Invalid time or philosophers number"
+			"(the time must be greater than 60 and the p"
+			"hilo number greater than 0)\n");
 		exit(1);
 	}
 }
@@ -58,10 +72,12 @@ int	init_mutexes(t_data_philosopher *data)
 	return (0);
 }
 
-t_philo_thrds	*init_philosophers_array(t_data_philosopher *data)
+t_philo_thrds	*init_philo_array(t_data_philosopher *data)
 {
 	t_philo_thrds	*philosophers;
+	int				i;
 
+	i = 0;
 	philosophers = malloc(data->philo_number * sizeof(t_philo_thrds));
 	if (!philosophers)
 	{
@@ -70,7 +86,7 @@ t_philo_thrds	*init_philosophers_array(t_data_philosopher *data)
 	}
 	data->time = ft_time();
 	data->full_flag = 0;
-	for (int i = 0; i < data->philo_number; i++)
+	while (i < data->philo_number)
 	{
 		philosophers[i].philo_id = i;
 		philosophers[i].data = data;
@@ -78,22 +94,25 @@ t_philo_thrds	*init_philosophers_array(t_data_philosopher *data)
 		philosophers[i].meals_eaten = 0;
 		philosophers[i].fork_left = malloc(sizeof(pthread_mutex_t));
 		if (pthread_mutex_init(philosophers[i].fork_left, NULL) != 0)
-		{
-			printf("Error: mutex init failed\n");
 			exit(1);
-		}
+		i++;
 	}
 	return (philosophers);
 }
 
-//Assign i - 1 (the left of the cur philo) + philo numb (ensuring the numb is positive)
-//% the philo numb it will wrap arounfd in a circular manner (ex:0 - 1 + 5) % 5 = 4(which will be last for 5 philos)
+// Assign i - 1 (the left of the cur philo)
+//+ philo numb (ensuring the numb is positive)
+//% the philo numb it will wrap arounfd in a circular manner (ex:0 - 1 + 5)
+//% 5 = 4(which will be last for 5 philos)
 
 void	setup_forks(t_philo_thrds *philosophers, t_data_philosopher *data)
 {
-	for (int i = 0; i < data->philo_number; i++)
+	int	i;
+
+	while (i < data->philo_number)
 	{
 		philosophers[i].fork_right = philosophers[(i - 1 + data->philo_number)
 			% data->philo_number].fork_left;
+		i++;
 	}
 }

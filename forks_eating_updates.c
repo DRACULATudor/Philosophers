@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   forks_eating_updates.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:10:20 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:36:43 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 //if numb is even we lock from the right first
@@ -23,6 +35,7 @@ int	check_fork_order(t_philo_thrds *philo)
 	}
 	return (0);
 }
+
 //than unlock here
 void	release_forks(t_philo_thrds *philo)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   death_full_check2.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:11:47 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:52:32 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 int	meal_time(t_philo_thrds *philo)
@@ -28,7 +40,6 @@ int	meal_time(t_philo_thrds *philo)
 	pthread_mutex_unlock(&philo->data->meals_eaten_mtex);
 	return (all_meals_eaten);
 }
-
 
 //if curr time - last meal time > than time of death -> death
 int	check_death(t_philo_thrds *philo)
@@ -69,7 +80,7 @@ t_philo_thrds	*init_philosophers(int argc, char **argv)
 		free(data);
 		return (NULL);
 	}
-	philosophers = init_philosophers_array(data);
+	philosophers = init_philo_array(data);
 	if (!philosophers)
 	{
 		free(data);

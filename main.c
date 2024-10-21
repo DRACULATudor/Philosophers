@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 14:10:08 by tlupu             #+#    #+#             */
+/*   Updated: 2024/10/21 14:34:43 by tlupu            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 //monitor is using the main thread of the program to ewatch over all the philos
 
 void	create_threads(t_philo_thrds *philosophers)
 {
-	create_philosopher_threads(philosophers);
+	cret_phil_thrd(philosophers);
 	monitor(philosophers);
-	join_philosopher_threads(philosophers);
+	join_phil_thrd(philosophers);
 }
 
 int	main(int argc, char **argv)
