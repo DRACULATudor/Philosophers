@@ -6,7 +6,7 @@
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:11:00 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/21 14:35:19 by tlupu            ###   ########.fr       */
+/*   Updated: 2024/10/22 19:50:32 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	is_eating(t_philo_thrds *philo)
 	if (!check_fork_order(philo))
 		return (0);
 	update_meal_time(philo);
-	ft_usleep(philo->data->time_to_eat);
 	message(philo, EATIN);
+	ft_usleep(philo->data->time_to_eat);
 	release_forks(philo);
 	return (1);
 }
@@ -59,6 +59,11 @@ void	*routine(void *arg)
 	t_philo_thrds	*philo;
 
 	philo = (t_philo_thrds *)arg;
+	if (philo->philo_id % 2 != 0)
+	{
+		message(philo, THINKIN);
+		ft_usleep(1);
+	}
 	if (philo->data->philo_number == 1)
 	{
 		if (!handle_one_philo(philo))

@@ -6,7 +6,7 @@
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:10:32 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/21 14:47:53 by tlupu            ###   ########.fr       */
+/*   Updated: 2024/10/22 18:07:34 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void								message(t_philo_thrds *philo, char *msg);
 void								clear_philos(t_philo_thrds *philosop);
 
 // ERRORS AND STARTING.C//
-void								check_philosophers(char **argv);
+int								check_philosophers(char **argv);
 t_data_philosopher					*init_data(int argc, char **argv);
 int									init_mutexes(t_data_philosopher *data);
 t_philo_thrds						*init_philo_array(t_data_philosopher *data);

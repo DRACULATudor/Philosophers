@@ -6,13 +6,13 @@
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:10:08 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/21 14:34:43 by tlupu            ###   ########.fr       */
+/*   Updated: 2024/10/22 18:13:07 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-//monitor is using the main thread of the program to ewatch over all the philos
+// monitor is using the main thread of the program to ewatch over all the philos
 
 void	create_threads(t_philo_thrds *philosophers)
 {
@@ -28,9 +28,13 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 	{
 		printf("Error: wrong number of arguments\n");
-		exit(1);
+		return (1);
 	}
-	check_philosophers(argv);
+	if (check_philosophers(argv))
+	{
+		printf("Error: wrong argument given for philosophers number/time/numbers of meals\n");
+		return(1);
+	}
 	philosophers = init_philosophers(argc, argv);
 	create_threads(philosophers);
 	clear_philos(philosophers);

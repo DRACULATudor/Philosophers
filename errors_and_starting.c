@@ -6,22 +6,48 @@
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:11:36 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/21 14:51:46 by tlupu            ###   ########.fr       */
+/*   Updated: 2024/10/22 20:01:48 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	check_philosophers(char **argv)
+// ./philo 4 400 200 200 should die
+// ./philo 5 200 60 60 5 sometimes dies
+
+
+int	f_isdigit(int c)
 {
+	if (c >= '0' && c <= '9')
+	{
+		return (1);
+	}
+	return (0);
+}
+
+int is_digit_string(const char *str)
+{
+    if (str == NULL || *str == '\0')
+        return 0;
+    while (*str)
+    {
+        if (!f_isdigit(*str))
+            return 0;
+        str++;
+    }
+    return 1;
+}
+
+int	check_philosophers(char **argv)
+{
+	if (!is_digit_string(argv[1]) || ft_atoi(argv[1]) > 200)
+		return(1);
+	if(argv[5] && ft_atoi(argv[5]) <= 0)
+		return(1);
 	if (ft_atoi(argv[1]) < 0 || ft_atoi(argv[2]) < 60 || ft_atoi(argv[3]) < 60
 		|| ft_atoi(argv[4]) < 60)
-	{
-		printf("Error: Invalid time or philosophers number"
-			"(the time must be greater than 60 and the p"
-			"hilo number greater than 0)\n");
-		exit(1);
-	}
+		return(1);
+	return(0);
 }
 
 t_data_philosopher	*init_data(int argc, char **argv)
@@ -108,7 +134,8 @@ t_philo_thrds	*init_philo_array(t_data_philosopher *data)
 void	setup_forks(t_philo_thrds *philosophers, t_data_philosopher *data)
 {
 	int	i;
-
+	
+	i = 0;
 	while (i < data->philo_number)
 	{
 		philosophers[i].fork_right = philosophers[(i - 1 + data->philo_number)
