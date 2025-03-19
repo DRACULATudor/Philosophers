@@ -5,87 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 14:11:00 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/22 19:50:32 by tlupu            ###   ########.fr       */
+/*   Created: 2024/10/30 16:02:29 by tlupu             #+#    #+#             */
+/*   Updated: 2024/11/08 16:12:08 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	handle_one_philo(t_philo_thrds *philo)
+// remember to check for how assigni the right fork so nothing ruins
+int	is_thinking(t_philo_thrds *philo)
 {
-	while (!has_died(philo))
-	{
-		is_thinking(philo);
-		message(philo, FIRST_FORK);
-		is_sleeping(philo);
-	}
+	if (has_died(philo) == true || has_eaten_all_meals(philo) == true)
+		return (1);
+	message(philo, THINKIN);
 	return (0);
 }
 
 int	is_sleeping(t_philo_thrds *philo)
 {
-	if (has_died(philo) || check_full(philo))
-		return (0);
+	if (has_died(philo) == true || has_eaten_all_meals(philo) == true)
+		return (1);
 	message(philo, SLEEPIN);
 	ft_usleep(philo->data->time_to_sleep);
-	return (1);
+	return (0);
 }
 
 int	is_eating(t_philo_thrds *philo)
 {
-	if (has_died(philo))
-		return (0);
-	if (!check_fork_order(philo))
-		return (0);
+	if (has_died(philo) == true)
+		return (1);
+	if (check_forks(philo))
+		return (1);
 	update_meal_time(philo);
 	message(philo, EATIN);
 	ft_usleep(philo->data->time_to_eat);
 	release_forks(philo);
-	return (1);
+	return (0);
 }
 
-int	is_thinking(t_philo_thrds *philo)
+void	handle_one_philo(t_philo_thrds *philo)
 {
-	if (has_died(philo) || check_full(philo))
-		return (0);
-	message(philo, THINKIN);
-	return (1);
+	if (check_forks(philo))
+		return ;
+	release_forks(philo);
+	if (!has_died(philo))
+		return ;
 }
-//Main routie function to check for the actions of each philo
 
 void	*routine(void *arg)
 {
-	t_philo_thrds	*philo;
+	t_philo_thrds	*philos;
 
-	philo = (t_philo_thrds *)arg;
-	if (philo->philo_id % 2 != 0)
+	philos = (t_philo_thrds *)arg;
+	pthread_mutex_lock(&philos->data->time_mtex);
+	philos->last_time_ate = ft_time();
+	pthread_mutex_unlock(&philos->data->time_mtex);
+	if (philos->philo_id % 2 != 0 && philos->data->philo_number != 1)
+		handle_start(philos);
+	if (philos->data->philo_number == 1)
 	{
-		message(philo, THINKIN);
-		ft_usleep(1);
-	}
-	if (philo->data->philo_number == 1)
-	{
-		if (!handle_one_philo(philo))
-			return (NULL);
+		handle_one_philo(philos);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->data->time_mtex);
-		philo->last_time_ate = ft_time();
-		pthread_mutex_unlock(&philo->data->time_mtex);
 		while (1)
 		{
-			if (!is_eating(philo))
+			if (is_eating(philos))
 				break ;
-			if (!is_sleeping(philo))
+			if (is_sleeping(philos))
 				break ;
-			if (!is_thinking(philo))
+			if (is_thinking(philos))
 				break ;
 		}
 	}
 	return (NULL);
 }
-//need to lock each time in order to avoid data races, 
-//imp to NOTE allways use the same mutexes for 
-//the same variables im planning to acces later on

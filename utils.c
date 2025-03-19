@@ -5,20 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlupu <tlupu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 14:11:11 by tlupu             #+#    #+#             */
-/*   Updated: 2024/10/21 14:11:17 by tlupu            ###   ########.fr       */
+/*   Created: 2024/10/29 19:30:56 by tlupu             #+#    #+#             */
+/*   Updated: 2024/11/06 16:17:53 by tlupu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_isdigit(int c)
+int	f_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 	{
 		return (1);
 	}
 	return (0);
+}
+
+int	is_digit_string(const char *str)
+{
+	if (str == NULL || *str == '\0')
+		return (0);
+	while (*str)
+	{
+		if (!f_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
 int	ft_atoi(const char *str)
@@ -40,7 +53,7 @@ int	ft_atoi(const char *str)
 	}
 	else if (str[i] == '+')
 		i++;
-	while (ft_isdigit(str[i]))
+	while (f_isdigit(str[i]))
 	{
 		result = result * 10 + (str[i] - '0');
 		i++;
